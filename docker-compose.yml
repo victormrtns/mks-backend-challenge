@@ -1,0 +1,24 @@
+services:
+  mks_backend_nest_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+    - '3000:3000'
+    environment:
+      - PORT=3000
+      - NODE_ENV=development
+    depends_on:
+      - postgres_db
+    volumes:
+      - ./src:/usr/src/app/src
+  postgres_db:
+    image: postgres
+    container_name: mks-postgres_db
+    ports:
+    - '5432:5432'
+    environment:
+      POSTGRES_DB: mks-postgres_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+
