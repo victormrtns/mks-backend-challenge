@@ -2,6 +2,17 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './entity/user.entity';
+import { UserModule } from './modules/user.module';
+import { UserController } from './controller/user.controller';
+import { UserService } from './service/user.service';
+import { UserRepository } from './repo/user.repository';
+import { AuthModule } from './auth/auth.module';
+import { AuthService } from './auth/auth.service';
+import { AuthController } from './auth/auth.controller';
+import { JwtStrategy } from './auth/jwt.strategy';
+import { LocalStrategy } from './auth/local.strategy';
+import { JwtService } from '@nestjs/jwt';
 
 //Remember, change localhost to docker-container name postgres (mks-postgres_db) when u going to commit this to run.
 @Module({
@@ -14,8 +25,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     database: 'mks-postgres_db',
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: true,
-  })],
-  controllers: [AppController],
-  providers: [AppService],
+  }),TypeOrmModule.forFeature([User]),
+  UserModule,
+  AuthModule
+],
+  controllers: [AppController,UserController,AuthController],
+  providers: [AppService,UserService,AuthService,UserRepository,JwtService]
 })
 export class AppModule {}
