@@ -6,6 +6,7 @@ import { User } from "src/entity/user.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Cache } from "cache-manager";
 import { CACHE_MANAGER } from "@nestjs/cache-manager";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService{
@@ -32,6 +33,7 @@ export class UserService{
 
   async create(createUserDTO:CreateUserDTO): Promise<User>{
     let user = new User();
+    createUserDTO.password = await bcrypt.hash(createUserDTO.password,10)
     user = {...user,firstName:createUserDTO.firstname,lastName:createUserDTO.lastname,email:createUserDTO.email,userName:createUserDTO.username,password:createUserDTO.password}
     await this.userRepository.save(user);
     return user;

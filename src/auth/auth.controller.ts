@@ -16,12 +16,4 @@ export class AuthController {
   async login(@Body() login:LoginTokenDTO) {
     return this.authService.login(login);
   }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Get('profile')
-  @ApiOkResponse({ description: 'User Has been found'})
-  @ApiBadRequestResponse({ description: 'User Has not been found'})
-  getProfile(@Request() req) {
-    return req.user;
-  }
 }

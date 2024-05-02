@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { ApiProperty } from '@nestjs/swagger';
 import { LoginTokenDTO } from 'src/dto/login-token.dto';
+import * as bcrypt from 'bcrypt';
 
 export abstract class LoginResponse {
     @ApiProperty()
@@ -16,7 +17,8 @@ export class AuthService {
 
   async validateUser(username: string, pass: string): Promise<any> {
     const user = await this.usersService.findOneByUsername(username);
-    if (user && user.password === pass) {
+    const validPassword = await bcrypt.compare(pass, user.password);
+    if (user && validPassword) {
       const { password, ...result } = user;
       return result;
     }

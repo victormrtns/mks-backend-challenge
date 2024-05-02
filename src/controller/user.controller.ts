@@ -40,7 +40,6 @@ export class UserController{
 
   @Post()
   @HttpCode(201)
-  @UseGuards(AuthGuard('jwt'))
   @ApiCreatedResponse({ description: 'User has been created',type:User})
   @ApiBadRequestResponse({ description: 'User has not been created. Try Again'})
   async postUser(@Body() createUserDTO:CreateUserDTO): Promise<User> {
