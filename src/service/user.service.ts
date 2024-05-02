@@ -10,6 +10,9 @@ export class UserService{
   constructor(
     @InjectRepository(User)
     private userRepository: UserRepository) {}
+  async findOneByUsername(username:string): Promise<any>{
+    return this.userRepository.findOne({ where: { userName:username } });
+  }
   async findOne(id:number): Promise<any>{
     return this.userRepository.findOne({ where: { id } });
   }
