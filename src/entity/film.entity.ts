@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { IsEmail, IsNotEmpty, Length } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
+import * as process from "process"
 
 @Entity()
 export class Film{
