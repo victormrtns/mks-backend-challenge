@@ -13,6 +13,7 @@ import { AuthController } from './auth/auth.controller';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { LocalStrategy } from './auth/local.strategy';
 import { JwtService } from '@nestjs/jwt';
+import { FilmModule } from './modules/film.module';
 
 //Remember, change localhost to docker-container name postgres (mks-postgres_db) when u going to commit this to run.
 @Module({
@@ -27,7 +28,8 @@ import { JwtService } from '@nestjs/jwt';
     synchronize: true,
   }),TypeOrmModule.forFeature([User]),
   UserModule,
-  AuthModule
+  AuthModule,
+  FilmModule
 ],
   controllers: [AppController,UserController,AuthController],
   providers: [AppService,UserService,AuthService,UserRepository,JwtService]
