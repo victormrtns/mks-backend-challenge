@@ -12,8 +12,10 @@ import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/auth.controller';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { LocalStrategy } from './auth/local.strategy';
-import { JwtService } from '@nestjs/jwt';
+import { JwtService } from '@nestjs/jwt'; 
 import { FilmModule } from './modules/film.module';
+import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 //Remember, change localhost to docker-container name postgres (mks-postgres_db) when u going to commit this to run.
 @Module({
@@ -29,7 +31,11 @@ import { FilmModule } from './modules/film.module';
   }),TypeOrmModule.forFeature([User]),
   UserModule,
   AuthModule,
-  FilmModule
+  FilmModule,
+  CacheModule.register({
+    ttl:30 * 1000,
+    isGlobal:true
+  })
 ],
   controllers: [AppController,UserController,AuthController],
   providers: [AppService,UserService,AuthService,UserRepository,JwtService]

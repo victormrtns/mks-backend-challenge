@@ -1,23 +1,27 @@
-import { ConflictException, Injectable } from "@nestjs/common";
+import { ConflictException, Inject, Injectable, UseInterceptors } from "@nestjs/common";
 import { FilmRepository } from '../repo/film.repository';
 import { CreateFilmDTO } from "src/dto/create-film.dto";
 import { UpdateFilmDTO } from "src/dto/update-film.dto";
 import { Film } from "src/entity/film.entity";
 import { InjectRepository } from "@nestjs/typeorm";
+import { Cache } from "cache-manager";
+import { CACHE_MANAGER} from "@nestjs/cache-manager";
 
 @Injectable()
 export class FilmService{
   constructor(
     @InjectRepository(Film)
-    private filmRepository: FilmRepository) {}
+    private filmRepository: FilmRepository,
+    @Inject(CACHE_MANAGER) private readonly cacheManager:Cache) {}
   async findOneByFilmname(filmname:string): Promise<any>{
     return this.filmRepository.findOne({ where: { filmName:filmname } });
   }
   async findOne(id:number): Promise<any>{
-    return this.filmRepository.findOne({ where: { id } });
+    return await this.filmRepository.findOne({ where: { id } });
   }
   async findAll(): Promise<any>{
-    return this.filmRepository.find();
+    const filmsData = await this.filmRepository.find();
+    return filmsData ;
   }
 
   async create(createFilmDTO:CreateFilmDTO): Promise<Film>{
