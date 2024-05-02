@@ -1,4 +1,5 @@
-import { Body, ConflictException, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Put, UseGuards } from "@nestjs/common";
+import { CacheInterceptor } from "@nestjs/cache-manager";
+import { Body, ConflictException, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Put, UseGuards, UseInterceptors } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreateUserDTO } from "src/dto/create-user.dto";
@@ -8,6 +9,7 @@ import { UserRepository } from "src/repo/user.repository";
 import { UserService } from "src/service/user.service";
 
 @Controller('users')
+@UseInterceptors(CacheInterceptor)
 export class UserController{
   
   constructor(private userService:UserService,
@@ -18,6 +20,7 @@ export class UserController{
   @HttpCode(200)
   @UseGuards(AuthGuard('jwt'))
   async findAll(): Promise<Array<User>> {
+    console.log("Inside Controller")
     return await this.userService.findAll();
   }
 

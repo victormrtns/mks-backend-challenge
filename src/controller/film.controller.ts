@@ -1,4 +1,5 @@
-import { Body, ConflictException, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Put, UseGuards } from "@nestjs/common";
+import { CacheInterceptor, CacheKey } from "@nestjs/cache-manager";
+import { Body, ConflictException, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Put, UseGuards, UseInterceptors } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreateFilmDTO } from "src/dto/create-film.dto";
@@ -8,6 +9,7 @@ import { FilmRepository } from "src/repo/film.repository";
 import { FilmService } from "src/service/film.service";
 
 @Controller('films')
+@UseInterceptors(CacheInterceptor)
 export class FilmController{
   
   constructor(private filmService:FilmService,
