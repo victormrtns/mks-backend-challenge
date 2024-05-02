@@ -11,10 +11,10 @@ export class UserService{
     @InjectRepository(User)
     private userRepository: UserRepository) {}
   async findOne(id:number): Promise<any>{
-    return "a"
+    return this.userRepository.findOne({ where: { id } });
   }
   async findAll(): Promise<any>{
-    return "a"
+    return this.userRepository.find();
   }
 
   async create(createUserDTO:CreateUserDTO): Promise<User>{
@@ -25,22 +25,13 @@ export class UserService{
     return user;
   }
 
-  async update(updateUserDTO:UpdateUserDTO,id:number): Promise<User>{
-    let found_user = await this.userRepository.findOne({
-      where:[
-        {id:id}
-        ]
-    })
-    if(!found_user){
-      throw new ConflictException('Id doesnt exist inside the database', { cause: new Error(), description: 'Id doesnt exist inside the database' })
-    } 
-    let saved_user = {...found_user,firstName:updateUserDTO.firstname,lastName:updateUserDTO.lastname,email:updateUserDTO.email,userName:updateUserDTO.username}
-    await this.userRepository.save(saved_user);
-    return saved_user;
+  async update(user: User,id:number): Promise<User>{
+    await this.userRepository.save(user);
+    return await this.userRepository.findOne({ where: { id } });
   }
 
   async delete(id:number): Promise<any>{
-    return "a";
+    await this.userRepository.delete(id);
   }
 
 }

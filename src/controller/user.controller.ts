@@ -1,4 +1,4 @@
-import { Body, ConflictException, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Post, Put } from "@nestjs/common";
+import { Body, ConflictException, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Put } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreateUserDTO } from "src/dto/create-user.dto";
 import { UpdateUserDTO } from "src/dto/update-user.dto";
@@ -43,7 +43,10 @@ export class UserController{
   @Put(':id')
   @HttpCode(200)
   async putUser(@Body() updateUserDTO:UpdateUserDTO,@Param('id', ParseIntPipe) id:number): Promise<User>{
-    return await this.userService.update(updateUserDTO,id);
+    const user = new User();
+    const user_updated = {...user,id:id,firstName:updateUserDTO.firstname,lastName:updateUserDTO.lastname,email:updateUserDTO.email,userName:updateUserDTO.username,password:updateUserDTO.password}
+    console.log(user_updated)
+    return await this.userService.update(user_updated,id);
   }
 
   @Delete(':id')
