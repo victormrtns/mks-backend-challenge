@@ -1,6 +1,6 @@
 import { IsString, IsInt, IsDate } from 'class-validator';
 
-export class CreateFilmDto {
+export class CreateFilmDTO {
   @IsString()
   readonly filmName: string;
 
