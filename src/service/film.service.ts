@@ -23,7 +23,6 @@ export class FilmService{
   async create(createFilmDTO:CreateFilmDTO): Promise<Film>{
     let film = new Film();
     film = {...film,filmName:createFilmDTO.filmName,durationInMinutes:createFilmDTO.durationInMinutes,releaseDate:createFilmDTO.releaseDate}
-    console.log(film);
     await this.filmRepository.save(film);
     return film;
   }

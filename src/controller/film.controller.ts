@@ -49,7 +49,6 @@ export class FilmController{
   async putFilm(@Body() updateFilmDTO:UpdateFilmDTO,@Param('id', ParseIntPipe) id:number): Promise<Film>{
     const film = new Film();
     const film_updated = {...film,id:id,filmName:updateFilmDTO.filmName,durationInMinutes:updateFilmDTO.durationInMinutes,releaseDate:updateFilmDTO.releaseDate}
-    console.log(film_updated)
     return await this.filmService.update(film_updated,id);
   }
 

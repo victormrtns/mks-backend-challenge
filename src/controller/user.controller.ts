@@ -50,7 +50,6 @@ export class UserController{
   async putUser(@Body() updateUserDTO:UpdateUserDTO,@Param('id', ParseIntPipe) id:number): Promise<User>{
     const user = new User();
     const user_updated = {...user,id:id,firstName:updateUserDTO.firstname,lastName:updateUserDTO.lastname,email:updateUserDTO.email,userName:updateUserDTO.username,password:updateUserDTO.password}
-    console.log(user_updated)
     return await this.userService.update(user_updated,id);
   }
 
