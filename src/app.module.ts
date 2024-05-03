@@ -21,7 +21,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'postgres',
-    host: "mks-postgres_db",
+    host: "localhost",
     port: 5432,
     username: 'postgres',
     password: 'password',
