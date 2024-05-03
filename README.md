@@ -24,39 +24,18 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Nest](https://github.com/nestjs/nest) backend challenge from MKS using Docker, TypeORM, Swagger, PostgresSQL and Redis.
 
-## Installation
-
-```bash
-$ npm install
-```
-
-## Running the app
+## Running the app using docker
 
 ```bash
 # development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+$ docker-compose up --build
 ```
 
-## Test
+## To Access the Swagger, go into this url:
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
+http://localhost:3000/api
 
 ## Support
 
