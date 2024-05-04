@@ -26,6 +26,11 @@
 
 [Nest](https://github.com/nestjs/nest) backend challenge from MKS using Docker, TypeORM, Swagger, PostgresSQL and Redis.
 
+## Clone from starter repo
+```bash
+$ git clone https://github.com/victormrtns/mks-backend-challenge.git
+```
+
 ## Running the app using docker
 
 ```bash
@@ -36,6 +41,8 @@ $ docker-compose up --build
 ## To Access the Swagger, go into this url:
 
 http://localhost:3000/api
+
+# Now, you are ready to access this API.
 
 ## License
 
